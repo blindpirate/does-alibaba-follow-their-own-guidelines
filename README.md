@@ -22,7 +22,7 @@ groovy -DminimumPriority=1 DoesAlibabaFollowTheirOwnGuidelines.groovy
 |---|---|---|---|---|---|
 |fastjson|否|2926 PMD violations|91 PMD violations||
 |druid|否|10066 PMD violations|216 PMD violations|||
-|arthas|否|23 PMD violations|33 PMD violations|||
+|arthas|否|23 PMD violations|33 PMD violations|Open: https://github.com/alibaba/arthas/pull/568||
 |canal|否|42 PMD violations|3 PMD violations|||
 |fescar|否|5 PMD violations|build successful|||
 |Sentinel|否|143 PMD violations|3 PMD violations|||
