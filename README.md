@@ -10,24 +10,22 @@ https://github.com/alibaba/p3c
 groovy DoesAlibabaFollowTheirOwnGuidelines.groovy
 ``` 
 
-注意在JDK8上运行，因为有些项目的构建不支持11；同时保证`PATH`中包含`mvn`和`git`。
-
-这是运行`mvn pmd:check`的结果：
+注意在JDK8上运行，因为有些项目的构建不支持11；同时保证`PATH`中包含`mvn`和`git`。这会对所有的项目运行`mvn clean install -DskipTests`，期间会执行`mvn pmd:check`。
 
 | 项目名 | 项目运行结果 | 备注 | 
 |---|---|---|
 |fastjson|2926 PMD violations||
 |druid|10066 PMD violations||
-|arthas|4 PMD violations||
+|arthas|23 PMD violations||
 |canal|42 PMD violations||
 |fescar|5 PMD violations||
 |Sentinel|143 PMD violations||
-|nacos|build successful|需要先运行`mvn -Prelease-nacos clean install`|
+|nacos|build successful||
 |otter|build failure|https://github.com/alibaba/otter/issues/290|
 |easyexcel|44 PMD violations||
-|jstorm|19182 PMD violations||
+|jstorm|19183 PMD violations||
 |cobar-driver|35 PMD violations||
-|cobar-server|build successful||
+|cobar-server|2327 PMD violations||
 |cobar-manager|346 PMD violations||
 |jvm-sandbox|20 PMD violations||
 |DataX|179 PMD violations||
@@ -40,12 +38,18 @@ groovy DoesAlibabaFollowTheirOwnGuidelines.groovy
 |taokeeper|build failure|https://github.com/alibaba/taokeeper/issues/31|
 |simpleimage|build failure| https://github.com/alibaba/simpleimage/issues/16 |
 |asyncload|112 PMD violations||
-|p3c-eclipse-plugin|unknown||
+|p3c-eclipse-plugin|build successful||
 |p3c-p3c-pmd|2 PMD violations||
 
 -----------------------
 
-有人指出应该只进行最高优先级的检查。这是`mvn clean install -DskipTests -DminimumPriority=1`的结果：
+有人指出应该只进行最高优先级的检查。欲如此做，你需要：
+
+```
+groovy -DminimumPriority=1 DoesAlibabaFollowTheirOwnGuidelines.groovy
+``` 
+
+结果如下
 
 | 项目名 | 项目运行结果 | 备注 | 
 |---|---|---|
