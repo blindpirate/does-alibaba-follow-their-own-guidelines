@@ -120,7 +120,11 @@ class DoesAlibabaFollowTheirOwnGuidelines {
     }
 
     static String runMvnPmdCheck(File repoDir) {
-        return runInheritIO(repoDir, determineMvnCmd(repoDir), 'pmd:check')
+        if (System.getProperty('minimumPriority')) {
+            return runInheritIO(repoDir, determineMvnCmd(repoDir), 'clean', 'install', '-DskipTests', "-DminimumPriority=${System.getProperty('minimumPriority')}")
+        } else {
+            return runInheritIO(repoDir, determineMvnCmd(repoDir), 'clean', 'install', '-DskipTests')
+        }
     }
 
     static String determineMvnCmd(File repoDir) {
@@ -150,18 +154,6 @@ class DoesAlibabaFollowTheirOwnGuidelines {
 
             new File(repoDir, 'pom.xml').text = XmlUtil.serialize(pomXml)
         }
-    }
-
-    static getMavenPomNode(def pomXml) {
-        if (pomXml.build[0].plugins.empty) {
-            def pluginsNode = new XmlParser().parseText("<plugins>${MAVEN_PLUGIN_XML_NODE}<plugins>")
-            pomXml.build[0].children().add(0, pluginsNode)
-        } else {
-            def pluginNode = new XmlParser().parseText(MAVEN_PLUGIN_XML_NODE)
-            pomXml.build[0].plugins[0].children().add(0, pluginNode)
-        }
-
-        new File(repoDir, 'pom.xml').text = XmlUtil.serialize(pomXml)
     }
 
     static File cloneBaseDirectory() {
