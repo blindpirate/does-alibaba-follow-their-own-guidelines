@@ -12,6 +12,8 @@ groovy DoesAlibabaFollowTheirOwnGuidelines.groovy
 
 注意在JDK8上运行，因为有些项目的构建不支持11；同时保证`PATH`中包含`mvn`和`git`。
 
+这是运行`mvn pmd:check`的结果：
+
 | 项目名 | 项目运行结果 | 备注 | 
 |---|---|---|
 |fastjson|2926 PMD violations||
@@ -43,7 +45,7 @@ groovy DoesAlibabaFollowTheirOwnGuidelines.groovy
 
 -----------------------
 
-这是`mvn clean install -DskipTests -DminimumPriority=1`的结果：
+有人指出应该只进行最高优先级的检查。这是`mvn clean install -DskipTests -DminimumPriority=1`的结果：
 
 | 项目名 | 项目运行结果 | 备注 | 
 |---|---|---|
