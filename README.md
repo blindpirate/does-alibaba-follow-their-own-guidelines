@@ -10,75 +10,93 @@ https://github.com/alibaba/p3c
 groovy DoesAlibabaFollowTheirOwnGuidelines.groovy
 ``` 
 
-注意在JDK8上运行，因为有些项目的构建不支持11；同时保证`PATH`中包含`mvn`和`git`。这会对所有的项目运行`mvn clean install -DskipTests`，期间会执行`mvn pmd:check`。
-
-| 项目名 | 项目运行结果 | 备注 | 
-|---|---|---|
-|fastjson|2926 PMD violations||
-|druid|10066 PMD violations||
-|arthas|23 PMD violations||
-|canal|42 PMD violations||
-|fescar|5 PMD violations||
-|Sentinel|143 PMD violations||
-|nacos|build successful||
-|otter|build failure|https://github.com/alibaba/otter/issues/290|
-|easyexcel|44 PMD violations||
-|jstorm|19183 PMD violations||
-|cobar-driver|35 PMD violations||
-|cobar-server|2327 PMD violations||
-|cobar-manager|346 PMD violations||
-|jvm-sandbox|20 PMD violations||
-|DataX|179 PMD violations||
-|TProfiler|70 PMD violations||
-|dubbo-spring-boot-starter|9 PMD violations||
-|jetcache|5 PMD violations||
-|mdrill-trunk|4442 PMD violations||
-|yugong|297 PMD violations||
-|QLExpress|637 PMD violations||
-|taokeeper|build failure|https://github.com/alibaba/taokeeper/issues/31|
-|simpleimage|build failure| https://github.com/alibaba/simpleimage/issues/16 |
-|asyncload|112 PMD violations||
-|p3c-eclipse-plugin|build successful||
-|p3c-p3c-pmd|2 PMD violations||
-
------------------------
-
-有人指出应该只进行最高优先级的检查。欲如此做，你需要：
+只进行最高优先级的检查：
 
 ```
 groovy -DminimumPriority=1 DoesAlibabaFollowTheirOwnGuidelines.groovy
 ``` 
 
-结果如下
+注意在JDK8上运行，因为有些项目的构建不支持11；同时保证`PATH`中包含`mvn`和`git`。这会对所有的项目运行`mvn clean install -DskipTests`，期间会执行`mvn pmd:check`。
 
-| 项目名 | 项目运行结果 | 备注 | 
-|---|---|---|
-|fastjson|91 PMD violations||
-|druid|216 PMD violations||
-|arthas|33 PMD violations||
-|canal|3 PMD violations||
-|fescar|build successful||
-|Sentinel|3 PMD violations||
-|nacos|build successful||
-|otter|build failure||
-|easyexcel|build successful||
-|jstorm|2593 PMD violations||
-|cobar-driver|1 PMD violations||
-|cobar-server|356 PMD violations||
-|cobar-manager|47 PMD violations||
-|jvm-sandbox|11 PMD violations||
-|DataX|6 PMD violations||
-|TProfiler|2 PMD violations||
-|dubbo-spring-boot-starter|build successful||
-|jetcache|2 PMD violations||
-|mdrill-trunk|713 PMD violations||
-|yugong|82 PMD violations||
-|QLExpress|169 PMD violations||
-|taokeeper|build failure||
-|simpleimage|unknown||
-|asyncload|1 PMD violations||
-|p3c-eclipse-plugin|build successful||
-|p3c-p3c-pmd|build successful||
+| 项目名 | 是否使用了pmd-p3c | default | -DminimumPriority=1|PR及状态|备注|
+|---|---|---|---|---|---|
+|fastjson|否|2926 PMD violations|91 PMD violations||
+|druid|否|10066 PMD violations|216 PMD violations|||
+|arthas|否|23 PMD violations|33 PMD violations|||
+|canal|否|42 PMD violations|3 PMD violations|||
+|fescar|否|5 PMD violations|build successful|||
+|Sentinel|否|143 PMD violations|3 PMD violations|||
+|nacos|是|build successful|build successful|||
+|otter|否|build failure|build failure||https://github.com/alibaba/otter/issues/290|
+|easyexcel|否|44 PMD violations|build successful|||
+|jstorm|否|19183 PMD violations|2593 PMD violations|||
+|cobar-driver|否|35 PMD violations|1 PMD violations|||
+|cobar-server|否|2327 PMD violations|356 PMD violations|||
+|cobar-manager|否|346 PMD violations|47 PMD violations|||
+|jvm-sandbox|否|20 PMD violations|11 PMD violations|||
+|DataX|否|179 PMD violations|6 PMD violations|||
+|TProfiler|否|70 PMD violations|2 PMD violations|||
+|dubbo-spring-boot-starter|否|9 PMD violations|build successful|||
+|jetcache|否|5 PMD violations|2 PMD violations|||
+|mdrill-trunk|否|4442 PMD violations|713 PMD violations|||
+|yugong|否|297 PMD violations|82 PMD violations|||
+|QLExpress|否|637 PMD violations|169 PMD violations|||
+|taokeeper|否|build failure|build failure||https://github.com/alibaba/taokeeper/issues/31|
+|simpleimage|否|build failure|unknown||https://github.com/alibaba/simpleimage/issues/16 |
+|asyncload|否|112 PMD violations|1 PMD violations|||
+|p3c-eclipse-plugin|否|build successful|build successful|||
+|p3c-p3c-pmd|否|2 PMD violations|build successful|Open: https://github.com/alibaba/p3c/pull/466||
+
+注意其中的数字并不一定是整个项目violation数量，它可能只代表一个子项目中的violation数量。
+
+### 帮助阿里巴巴遵守阿里巴巴规范
+
+如果你想要帮助阿里巴巴遵守阿里巴巴规范，你可以如此做：
+
+- 在上面的列表中挑选一个你喜欢的、未使用p3c-pmd的项目。注意选择活跃项目，否则可能处于无人维护状态，这可以通过项目提交状态甄别。
+- 在`pom.xml`中加入：
+```
+  <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-pmd-plugin</artifactId>
+    <version>3.8</version>
+    <configuration>
+      <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
+      <targetJdk>1.8</targetJdk>
+      <printFailingErrors>true</printFailingErrors>
+      <rulesets>
+        <ruleset>rulesets/java/ali-comment.xml</ruleset>
+        <ruleset>rulesets/java/ali-concurrent.xml</ruleset>
+        <ruleset>rulesets/java/ali-constant.xml</ruleset>
+        <ruleset>rulesets/java/ali-exception.xml</ruleset>
+        <ruleset>rulesets/java/ali-flowcontrol.xml</ruleset>
+        <ruleset>rulesets/java/ali-naming.xml</ruleset>
+        <ruleset>rulesets/java/ali-oop.xml</ruleset>
+        <ruleset>rulesets/java/ali-orm.xml</ruleset>
+        <ruleset>rulesets/java/ali-other.xml</ruleset>
+        <ruleset>rulesets/java/ali-set.xml</ruleset>
+      </rulesets>
+    </configuration>
+    <executions>
+      <execution>
+        <phase>verify</phase>
+        <goals>
+          <goal>check</goal>
+        </goals>
+      </execution>
+    </executions>
+    <dependencies>
+      <dependency>
+        <groupId>com.alibaba.p3c</groupId>
+        <artifactId>p3c-pmd</artifactId>
+        <version>1.3.6</version>
+      </dependency>
+    </dependencies>
+  </plugin>
+```
+
+- 运行`mvn clean install -DskipTests -DminimumPriority=1`，修正列出的violations。如果你拿不准如何修改，可以使用`@SuppressWarnings("PMD.<RuleName>")`（这是编译期注解，放心使用），这样至少可以保证未来的代码不会变得更差。
+- 提交PR。
 
 -------------------------
 
