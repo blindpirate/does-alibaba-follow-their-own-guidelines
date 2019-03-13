@@ -43,6 +43,39 @@ groovy DoesAlibabaFollowTheirOwnGuidelines.groovy
 
 -----------------------
 
+这是`mvn clean install -DskipTests -DminimumPriority=1`的结果：
+
+| 项目名 | 项目运行结果 | 备注 | 
+|---|---|---|
+|fastjson|91 PMD violations||
+|druid|216 PMD violations||
+|arthas|33 PMD violations||
+|canal|3 PMD violations||
+|fescar|build successful||
+|Sentinel|3 PMD violations||
+|nacos|build successful||
+|otter|build failure||
+|easyexcel|build successful||
+|jstorm|2593 PMD violations||
+|cobar-driver|1 PMD violations||
+|cobar-server|356 PMD violations||
+|cobar-manager|47 PMD violations||
+|jvm-sandbox|11 PMD violations||
+|DataX|6 PMD violations||
+|TProfiler|2 PMD violations||
+|dubbo-spring-boot-starter|build successful||
+|jetcache|2 PMD violations||
+|mdrill-trunk|713 PMD violations||
+|yugong|82 PMD violations||
+|QLExpress|169 PMD violations||
+|taokeeper|build failure||
+|simpleimage|unknown||
+|asyncload|1 PMD violations||
+|p3c-eclipse-plugin|build successful||
+|p3c-p3c-pmd|build successful||
+
+-------------------------
+
 下面是广告时间！
 
 
