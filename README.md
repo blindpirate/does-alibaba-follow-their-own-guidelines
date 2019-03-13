@@ -97,6 +97,7 @@ groovy -DminimumPriority=1 DoesAlibabaFollowTheirOwnGuidelines.groovy
 
 - 运行`mvn clean install -DskipTests -DminimumPriority=1`，修正列出的violations。如果你拿不准如何修改，可以使用`@SuppressWarnings("PMD.<RuleName>")`（这是编译期注解，放心使用），这样至少可以保证未来的代码不会变得更差。
 - 提交PR。
+- 加分项：你可以尝试不加`-DminimumPriority=1`，修正所有violations。代价是工作量可能增长数倍。
 
 -------------------------
 
