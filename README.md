@@ -25,7 +25,7 @@ groovy -DminimumPriority=1 DoesAlibabaFollowTheirOwnGuidelines.groovy
 |[arthas](https://github.com/alibaba/arthas)|是|? PMD violations|build successful|Merged: https://github.com/alibaba/arthas/pull/568||
 |canal|否|42 PMD violations|3 PMD violations|||
 |fescar|否|5 PMD violations|build successful|||
-|[Sentinel](https://github.com/alibaba/Sentinel)|否|143 PMD violations|3 PMD violations|Open: https://github.com/alibaba/Sentinel/pull/574||
+|[Sentinel](https://github.com/alibaba/Sentinel)|是|? PMD violations|build successful|Merged: https://github.com/alibaba/Sentinel/pull/574||
 |nacos|是|build successful|build successful|||
 |otter|否|build failure|build failure||https://github.com/alibaba/otter/issues/290|
 |easyexcel|否|44 PMD violations|build successful|||
